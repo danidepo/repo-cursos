@@ -53,7 +53,7 @@ aggr(housing.data,
      labels = names(housing.data),
      cex.axis = 0.7,
      gap = 1,
-     ylab = c("Histograma de NAs", "Patrón")
+     ylab = c("Histograma de NAs", "Prueba")
 )
 
 
