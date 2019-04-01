@@ -18,3 +18,9 @@ round(prop.table(table,1)*100,2)
 #Por columnas
 round(prop.table(table,2)*100,2)
 
+par(mfrow=c(1,1))
+barplot(table, legend = TRUE, xlab = "Nota predecida por el modelo")
+
+mosaicplot(table, main = "Eficiencia del modelo")
+
+summary(table)
