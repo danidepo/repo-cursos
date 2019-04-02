@@ -5,14 +5,12 @@ require(devtools)
 install_url("https://cran.r-project.org/src/contrib/Archive/Rstem/Rstem_0.4-1.tar.gz")
 install_url("https://cran.r-project.org/src/contrib/Archive/slam/slam_0.1-37.tar.gz")
 
-library(rstem)
+library(Rstem)
 
-install.packages("sentimentr")
-
-install_url("https://cran.r-project.org/src/contrib/Archive/sentiment/sentiment_0.1.tar.gz")
+install_url("https://cran.r-project.org/src/contrib/Archive/sentiment/sentiment_0.2.tar.gz")
 
 library(slam)
-library(sentimentr)
+library(sentiment)
 library(twitteR)
 
 api_key <- "qLZwV6Bih8iwa0jyGqfEnksXx"
@@ -67,12 +65,7 @@ names(texts) <- NULL
 
 ## analisis de sentimiento
 
-#class_emo <- classify_emotionr(texts, algoritm = "bayes", prior = 1)
-
-class_emo <- sentimentr::emotion(texts, algoritm = "bayes", prior = 1)
-
-head(class_emo)
+class_emo <- classify_emotion(texts, algorithm = "bayes", prior = 1)
 
 
-#emotion <- class_emo[,7]
-#emotion[is.na(emotion)]<-"unknown"
+
