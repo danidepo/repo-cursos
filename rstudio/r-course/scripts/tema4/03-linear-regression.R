@@ -38,3 +38,38 @@ sqrt(mean((pred - auto[-t.id,]$mpg)^2))
 
 par(mfrow=c(2,2))
 plot(mod)
+
+# En el primer grafico el modelo explica bastante bien y no tiene ningun patron inherente
+# Se ven residuales los valores 300 y 269
+# El grafico de apalancamiento, la distancia de cook, los que se distancian son los 290...
+
+#300
+#38.0
+#6c
+#262.0
+#85
+#3015  mucho peso
+#17.0
+#82
+#oldsmobile cutlass ciera (diesel)
+
+#269
+#46.6 muchas millas por galeon
+#4c
+#86.0
+#65
+#2110
+#17.9
+#80
+#mazda glc
+
+#Reordenamiento de las variable de referencia a 4c
+#Recomendado utilizar como variable de referencia la que tenga mas casos
+auto <- within(auto, cylinders <- relevel(cylinders, ref="4c"))
+
+mod <- lm(mpg ~., data = auto[t.id, -c(1,8,9)])
+mod
+
+pred <- predict(mod, auto[-t.id, -c(1,8,9)])
+sqrt(mean((pred-auto[-t.id,]$mpg)^2))
+plot(mod)
