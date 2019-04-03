@@ -5,14 +5,14 @@ require(devtools)
 install_url("https://cran.r-project.org/src/contrib/Archive/Rstem/Rstem_0.4-1.tar.gz")
 install_url("https://cran.r-project.org/src/contrib/Archive/slam/slam_0.1-37.tar.gz")
 
-library(rstem)
+library(Rstem)
 
-install.packages("sentimentr")
+#install_url("https://cran.r-project.org/src/contrib/Archive/sentiment/sentiment_0.2.tar.gz")
 
-install_url("https://cran.r-project.org/src/contrib/Archive/sentiment/sentiment_0.1.tar.gz")
+install.packages("tm")
 
 library(slam)
-library(sentimentr)
+library(sentiment)
 library(twitteR)
 
 api_key <- "qLZwV6Bih8iwa0jyGqfEnksXx"
@@ -22,7 +22,7 @@ access_token_secret <- "KuBjf5yX7xE7JPUgMIzJfkimdnVcpOMDXdZkWAhhPggPl"
 
 setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
 
-tweets <- searchTwitter("machinelearning", n = 1500, lang = "en")
+tweets <- searchTwitter("ferrari", n = 1500, lang = "es")
 
 texts <- sapply(tweets, function(x) x$getText())
 
@@ -67,12 +67,41 @@ names(texts) <- NULL
 
 ## analisis de sentimiento
 
-#class_emo <- classify_emotionr(texts, algoritm = "bayes", prior = 1)
-
-class_emo <- sentimentr::emotion(texts, algoritm = "bayes", prior = 1)
-
+class_emo <- classify_emotion(texts, algorithm = "bayes", prior = 1)
 head(class_emo)
 
+emotion <- class_emo[,7]
+emotion[is.na(emotion)]<-"unknown"
 
-#emotion <- class_emo[,7]
-#emotion[is.na(emotion)]<-"unknown"
+head(emotion)
+
+## analisis de la polaridad
+
+class_pol <- classify_polarity(texts, algorithm = "bayes")
+
+head(class_pol)
+
+polarity <- class_pol[,4]
+
+##Creamos un dataframe que resuma los datos de sentimiento y de polaridad
+
+sent_df <- data.frame(text = texts, emotion = emotion, polarity = polarity, stringsAsFactors = F)
+
+sent_df <- within(sent_df, emotion <- factor(emotion, levels = names(sort(table(emotion), decreasing = T))))
+
+library(RColorBrewer)
+
+library(ggplot2)
+
+ggplot(sent_df, aes(x=emotion))+
+  geom_bar(aes(y = ..count.., fill=emotion))+
+  scale_fill_brewer(palette = "Set2")+
+  labs(x="Categorías de emoción", y = "Número de Tweets")+
+  labs(title = "Análisis de Sentimiento acerca de Machine Learning")
+
+
+ggplot(sent_df, aes(x=polarity))+
+  geom_bar(aes(y= ..count.., fill=polarity))+
+  scale_fill_brewer(palette = "Set3")+
+  labs(x="Categorías de polaridad", y = "Número de Tweets")+
+  labs(title = "Análisis de Sentimiento acerca de Machine Learning ")
