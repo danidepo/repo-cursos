@@ -73,3 +73,15 @@ mod
 pred <- predict(mod, auto[-t.id, -c(1,8,9)])
 sqrt(mean((pred-auto[-t.id,]$mpg)^2))
 plot(mod)
+
+#Podemos seleccionar las variables que va a tener nuestro modelo lineal
+library(MASS)
+
+mod
+summary(mod)
+
+#El modelo elimina la que considera menos importante (forward, backward)
+#Va eliminando los que van quedando debajo del AIC
+step.model <- stepAIC(mod, direction = "backward")
+summary(step.model)
+
