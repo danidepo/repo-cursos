@@ -32,7 +32,7 @@ clean.data <- function(text) {
   #Eliminar re-tweets y @ del texto original
   text = gsub("(RT|VIA)((?:\\b\\W*@\\w+)+)","", text)
   text = gsub("@\\w+", "", text)
-  #eliminar signos de puntuación y digitos del 0 al 9
+  #eliminar signos de puntuaciï¿½n y digitos del 0 al 9
   text = gsub("[[:punct:]]", "", text)
   text = gsub("[[:digit:]]", "", text)
   #eliminar links html, tabulaciones y espaciones adicionales
@@ -96,12 +96,12 @@ library(ggplot2)
 ggplot(sent_df, aes(x=emotion))+
   geom_bar(aes(y = ..count.., fill=emotion))+
   scale_fill_brewer(palette = "Set2")+
-  labs(x="Categorías de emoción", y = "Número de Tweets")+
-  labs(title = "Análisis de Sentimiento acerca de Machine Learning")
+  labs(x="Categorias de emocion", y = "Numero de Tweets")+
+  labs(title = "Analisis de Sentimiento acerca de Machine Learning")
 
 
 ggplot(sent_df, aes(x=polarity))+
   geom_bar(aes(y= ..count.., fill=polarity))+
   scale_fill_brewer(palette = "Set3")+
-  labs(x="Categorías de polaridad", y = "Número de Tweets")+
-  labs(title = "Análisis de Sentimiento acerca de Machine Learning ")
+  labs(x="Categorias de polaridad", y = "Numero de Tweets")+
+  labs(title = "Analisis de Sentimiento acerca de Machine Learning ")
