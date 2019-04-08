@@ -43,6 +43,17 @@ alb-aus
 sqrt(sum((alb-aus)^2))
 sum(abs(alb-aus))
 
+##
 
+install.packages("cluster")
+library(cluster)
+par(mfrow=c(1,1))
+dv <- diana(data, metric = "euclidean")
+plot(dv)
 
+fit <- cutree(hc, k=4)
+table(fit)
+
+#Divisiones hechas con clutree
+rect.hclust(hc, k=4, border = "red")
 
