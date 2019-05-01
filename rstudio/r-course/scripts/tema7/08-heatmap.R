@@ -6,10 +6,10 @@ library(maps)
 tartu_data <- read.csv("../data/tema7/tartu_housing.csv", sep = ";")
 head(tartu_data)
 
-register_google(key = "")
+register_google(key = "AIzaSyDX5K8InRabsDuw72bnQ5vKgmivWijAI5Q")
 
 tartu_map <- get_map(location = "tartu", maptype = "satellite", zoom = 12,
-                     api_key = "")
+                     api_key = "AIzaSyDX5K8InRabsDuw72bnQ5vKgmivWijAI5Q")
 
 ggmap(tartu.map, extent = "device") +
   geom_point(data = tartu_data, aes(x=lon, y = lat),
